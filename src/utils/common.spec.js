@@ -35,3 +35,57 @@ describe('pick util 단위테스트', () => {
     expect(pick(obj)).toEqual({});
   });
 });
+
+// 테스트 코드는 비동기 타이머와 무관하기 동기적으로 실행
+// -> 비동기 함수가 실행되기 전에 단언이 실행 됨
+// -> 타이머 모킹응 사용
+describe('debounde', () => {
+  // 타이머 모킹 -> 0.3초 흐른것으로 타이머 조작 -> spy 함수 호출 확인
+  beforeEach(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime('2026-01-01T00:00:00.000Z');
+  });
+
+  afterEach(() => {
+    vi.useRealTimers();
+  });
+
+  it('특정 시간이 지난 후 함수가 호출된다.', () => {
+    const spy = vi.fn();
+    const debouncedFn = debounce(spy, 300);
+
+    debouncedFn();
+
+    vi.advanceTimersByTime(300);
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('연이어 호출해도 마지막 호출 기준으로 지정된 타이머 시간이 지난 경우에만 콜백 함수 호출된다.', () => {
+    const spy = vi.fn();
+    const debouncedFn = debounce(spy, 300);
+
+    // 최초 호출
+    debouncedFn();
+
+    // 최초 호출 후 0.2초 후 호출
+    vi.advanceTimersByTime(200);
+    debouncedFn();
+
+    // 두번째 호출 후 0.1초 후 호출
+    vi.advanceTimersByTime(100);
+    debouncedFn();
+
+    // 세번째 호출 후 0.2초 후 호출
+    vi.advanceTimersByTime(200);
+    debouncedFn();
+
+    // 네번째 호출 후 0.3초 후 호출
+    // 함수 간격이 최초로 0.3초 이상이 됨
+    vi.advanceTimersByTime(300);
+    debouncedFn();
+
+    // 총 호출 횟수는 5회이지만 실제 실행은 1번
+    expect(spy).toHaveBeenCalledTimes(1);
+  });
+});
