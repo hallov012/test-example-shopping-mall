@@ -27,11 +27,62 @@ vi.mock('react-router-dom', async () => {
   };
 });
 
-it('로딩이 완료된 경우 상품 리스트가 제대로 모두 노출된다', async () => {});
+it('로딩이 완료된 경우 상품 리스트가 제대로 모두 노출된다', async () => {
+  await render(<ProductList limit={PRODUCT_PAGE_LIMIT} />);
 
-it('보여줄 상품 리스트가 더 있는 경우 show more 버튼이 노출되며, 버튼을 누르면 상품 리스트를 더 가져온다.', async () => {});
+  const productCards = await screen.findAllByTestId('product-card');
 
-it('보여줄 상품 리스트가 없는 경우 show more 버튼이 노출되지 않는다.', async () => {});
+  expect(productCards).toHaveLength(PRODUCT_PAGE_LIMIT);
+
+  productCards.forEach((el, index) => {
+    const productCard = within(el);
+    const product = data.products[index];
+
+    expect(productCard.getByText(product.title)).toBeInTheDocument();
+    expect(productCard.getByText(product.category.name)).toBeInTheDocument();
+    expect(
+      productCard.getByText(formatPrice(product.price)),
+    ).toBeInTheDocument();
+    expect(
+      productCard.getByRole('button', { name: '구매' }),
+    ).toBeInTheDocument();
+    expect(
+      productCard.getByRole('button', { name: '장바구니' }),
+    ).toBeInTheDocument();
+  });
+});
+
+it('보여줄 상품 리스트가 더 있는 경우 show more 버튼이 노출되며, 버튼을 누르면 상품 리스트를 더 가져온다.', async () => {
+  const { user } = await render(<ProductList limit={PRODUCT_PAGE_LIMIT} />);
+
+  // show more 버튼이 노출되는지 판단하기 위해
+  // findBy 쿼리를 사용해 먼저 첫 페이지에 해당하는 상품 목록이 랜더링 되는 것을 기다림
+  await screen.findAllByTestId('product-card');
+
+  // show more 버튼이 노출되는지 확인
+  expect(screen.getByRole('button', { name: 'Show more' })).toBeInTheDocument();
+
+  // show more 버튼 클릭
+  const moreBtn = screen.getByRole('button', { name: 'Show more' });
+  await user.click(moreBtn);
+
+  // 상품 리스트가 더 노출되는지 확인
+  const productCards = await screen.findAllByTestId('product-card');
+  expect(productCards).toHaveLength(PRODUCT_PAGE_LIMIT * 2);
+});
+
+it('보여줄 상품 리스트가 없는 경우 show more 버튼이 노출되지 않는다.', async () => {
+  // 모킹 데이터 20개 보다 많은 수 50으로 설정
+  await render(<ProductList limit={50} />);
+
+  // findBy 쿼리를 사용해 첫 페이지에 해당하는 상품 목록이 랜더링 되는 것을 기다림
+  await screen.findAllByTestId('product-card');
+
+  // show more 버튼이 노출되지 않는지 확인
+  expect(
+    screen.queryByRole('button', { name: 'Show more' }),
+  ).not.toBeInTheDocument();
+});
 
 describe('로그인 상태일 경우', () => {
   beforeEach(() => {
