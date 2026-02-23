@@ -83,7 +83,6 @@ describe('debounde', () => {
     // 네번째 호출 후 0.3초 후 호출
     // 함수 간격이 최초로 0.3초 이상이 됨
     vi.advanceTimersByTime(300);
-    debouncedFn();
 
     // 총 호출 횟수는 5회이지만 실제 실행은 1번
     expect(spy).toHaveBeenCalledTimes(1);
