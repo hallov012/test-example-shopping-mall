@@ -15,6 +15,17 @@ import { useCartStore } from '@/store/cart';
 import { useUserStore } from '@/store/user';
 import { pick } from '@/utils/common';
 
+/**
+ * 비즈니스 로직
+ * 1. Wist Mart 텍스트 로고 클릭시 메인 페이지로 이동
+ * 2. 로그인이 안된 경우
+ *  - 로그인 버튼 노출, 클릭시 로그인 페이지로 이동
+ * 3. 로그인 상태일 경우
+ *  - 장바구니 카트 버튼, 장바구니에 담긴 상품수 나타남
+ *  - 회원 이름으로 된 로그아웃 버튼 노출
+ *  - 로그아웃 버튼 클릭시, "로그아웃 하시겠습니까?" 문구가 담긴 모달 노출
+ *    -> 모달의 확인버튼 클릭시 로그아웃, 모달 닫힘. 취소 클릭시 모달 닫힘
+ */
 const NavigationBar = () => {
   const navigate = useNavigate();
   const { isModalOpened, toggleIsModalOpened } = useConfirmModal();
@@ -33,6 +44,7 @@ const NavigationBar = () => {
   const { data, remove } = useProfile({
     config: {
       onSuccess: profile => {
+        console.log('EEEEE', profile);
         setUserData(profile);
         initCart(profile.id);
       },

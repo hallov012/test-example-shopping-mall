@@ -28,6 +28,11 @@ const getTotalPrice = ({ coupon, shippingCost, totalPrice }) => {
   return formatPrice(priceAppliedCoupon + shippingCost);
 };
 
+/**
+ * 역할
+ * 1. 총 상품 가격, 할인 쿠폰, 배송비, 총 결제 금액 노출
+ * 2. 결제 수단 선택
+ */
 const Payment = () => {
   const { totalPrice } = useCartStore(state => pick(state, 'totalPrice'));
   const { selectedCoupon } = useCouponList();

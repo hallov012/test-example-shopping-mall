@@ -17,6 +17,12 @@ import NameTableRow from '@/pages/purchase/components/NameTableRow';
 import PhoneTableRow from '@/pages/purchase/components/PhoneTableRow';
 import RequestsTableRow from '@/pages/purchase/components/RequestsTableRow';
 
+/**
+ * 역할
+ * 1. 배송 정보 입력
+ * 2. API를 통해 구폰 정보를 가져오고 렌더링
+ * 3. 각 필드별 유효성 검증
+ */
 const ShippingInformationForm = () => (
   <Box>
     <Typography variant="h5">배송 정보</Typography>
