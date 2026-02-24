@@ -14,6 +14,10 @@ import { useCartStore } from '@/store/cart';
 import { pick } from '@/utils/common';
 import { formatPrice } from '@/utils/formatter';
 
+/**
+ * 역할
+ * 1. 장바구니에 담긴 상품과 가격 정보 노출
+ */
 const ItemList = () => {
   const { cart } = useCartStore(state => pick(state, 'cart'));
 
