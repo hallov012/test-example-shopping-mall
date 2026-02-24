@@ -1,0 +1,50 @@
+
+[7m[1m[36m RUN [39m[22m[27m [36mv1.6.1[39m [90mD:/hyelim/test-example-shopping-mall[39m
+
+ [33m??[39m src/pages/cart/components/tests/ProductInfoTable.spec.jsx [2m ([22m[2m4 tests[22m [2m|[22m [31m2 failed[39m[2m)[22m[90m 222[2mms[22m[39m
+[31m   [33m??[31m src/pages/cart/components/tests/ProductInfoTable.spec.jsx[2m > [22m?λ컮援щ땲???ы븿???꾩씠?쒕뱾???대쫫, ?섎웾, ?⑷퀎媛 ?쒕?濡??몄텧?쒕떎[39m
+[31m     ??within(...).getByTText is not a function[39m
+[31m   [33m??[31m src/pages/cart/components/tests/ProductInfoTable.spec.jsx[2m > [22m?뱀젙 ?꾩씠?쒖쓽 ?섎웾??蹂寃쎈릺?덉쓣 ??媛믪씠 ?ш퀎?곕릺???щ컮瑜닿쾶 ?낅뜲?댄듃 ?쒕떎[39m
+[31m     ??[2mexpect([22m[31melement[31m[2m).toHaveValue([22m[32m5[31m[2m)[22m
+
+Expected the element to have value:
+[32m  5 (number)[31m
+Received:
+[31m  5 (string)[31m[39m
+
+??렞??렞??렞??[1m Failed Tests 2 ??렞??렞??렞??[39m
+
+ FAIL  src/pages/cart/components/tests/ProductInfoTable.spec.jsx > ?λ컮援щ땲???ы븿???꾩씠?쒕뱾???대쫫, ?섎웾, ?⑷퀎媛 ?쒕?濡??몄텧?쒕떎
+TypeError: within(...).getByTText is not a function
+ ??[22m src/pages/cart/components/tests/ProductInfoTable.spec.jsx:51:23
+     49| 
+     50|   expect(
+     51|     within(firstItem).getByTText('Handmade Cotton Fish'),
+       |                       ^
+     52|   ).toBeInTheDocument();
+     53|   expect(within(firstItem).getByRole('textbox')).toHaveValue(3);
+
+??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞[1/2]??[22m
+
+ FAIL  src/pages/cart/components/tests/ProductInfoTable.spec.jsx > ?뱀젙 ?꾩씠?쒖쓽 ?섎웾??蹂寃쎈릺?덉쓣 ??媛믪씠 ?ш퀎?곕릺???щ컮瑜닿쾶 ?낅뜲?댄듃 ?쒕떎
+Error: expect(element).toHaveValue(5)
+
+Expected the element to have value:
+  5 (number)
+Received:
+  5 (string)
+ ??[22m src/pages/cart/components/tests/ProductInfoTable.spec.jsx:73:17
+     71|   await user.type(input, '5');
+     72| 
+     73|   expect(input).toHaveValue(5);
+       |                 ^
+     74|   expect(within(firstItem).getByText('$4,045.00')).toBeInTheDocument();
+     75| });
+
+??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞??렞[2/2]??[22m
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 16:10:34
+[2m   Duration [22m 5.91s[2m (transform 1.65s, setup 1.89s, collect 2.41s, tests 222ms, environment 621ms, prepare 119ms)[22m
+
