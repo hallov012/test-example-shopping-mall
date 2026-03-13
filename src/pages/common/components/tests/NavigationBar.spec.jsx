@@ -104,7 +104,6 @@ describe('로그인이 된 경우', () => {
     expect(navigateFn).toHaveBeenNthCalledWith(1, '/cart');
   });
 
-  // 모달 관련 동작이나 describe로 묶음
   describe('로그아웃 버튼(사용자 이름: "Maria")을 클릭하는 경우', () => {
     let userEvent;
     beforeEach(async () => {
@@ -129,7 +128,6 @@ describe('로그인이 된 경우', () => {
 
       await userEvent.click(confirmBtn);
 
-      // 로그인 버튼이 다시 나타나고, 'Maria' 라는 유저 이름 버튼과 모달이 사라짐
       expect(
         screen.getByRole('button', { name: '로그인' }),
       ).toBeInTheDocument();
